@@ -25,6 +25,7 @@
 		$easy_headers_option = new WPSettingsOption( $easy_headers_section, 'easy-headers', 'Easy Headers', [ 'input_type' => 'checkbox' ] );
 
 		$csp_section = new WPSettingsSection( $admin_page, 'content-security-policy', 'Content Security Policy' );
+		$csp_enable_option = new WPSettingsOption( $csp_section, "csp-enable", 'Enable Content Security Policy', [ 'input_type' => 'checkbox' ] );
 		$csp_options = [];
 		foreach ( ContentSecurityPolicy::TYPES as $type )
 		{
@@ -37,18 +38,18 @@
 			SecurityHeaders::setAllAutoPolicies();
 		}
 
-		$csp_values = [];
-		foreach ( $csp_options as $csp_option_key => $csp_option )
+		if ( $csp_enable_option->getOptionValue() )
 		{
-			$value = $csp_option->getOptionValue();
-			if ( $value !== '' )
+			$csp_values = [];
+			foreach ( $csp_options as $csp_option_key => $csp_option )
 			{
-				$csp_values[ $csp_option_key ] = $value;
+				$value = $csp_option->getOptionValue();
+				if ( $value !== '' )
+				{
+					$csp_values[ $csp_option_key ] = $value;
+				}
 			}
-		}
-		$csp = new ContentSecurityPolicy( $csp_values );
-		if ( $csp->getAllHeaderLines() !== '' )
-		{
+			$csp = new ContentSecurityPolicy( $csp_values );
 			$csp->submit();
 		}
 	}
