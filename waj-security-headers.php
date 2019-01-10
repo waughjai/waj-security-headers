@@ -36,4 +36,16 @@
 		{
 			SecurityHeaders::setAllAutoPolicies();
 		}
+
+		$csp_values = [];
+		foreach ( $csp_options as $csp_option_key => $csp_option )
+		{
+			$value = $csp_option->getOptionValue();
+			if ( $value !== '' )
+			{
+				$csp_values[ $csp_option_key ] = $value;
+			}
+		}
+		$csp = new ContentSecurityPolicy( $csp_values );
+		$csp->submit();
 	}
