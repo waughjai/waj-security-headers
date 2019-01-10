@@ -12,7 +12,7 @@
     "type": "library",
     "require": {
 		"php": ">=7.0",
-		"waughj/security-headers": ">=1.0.0",
+		"waughj/security-headers": ">=0.1.0",
 		"waughj/content-security-policy": "*"
     },
     "require-dev": {
