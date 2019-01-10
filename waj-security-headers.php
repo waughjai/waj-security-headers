@@ -15,8 +15,17 @@
 	{
 		require_once( 'vendor/autoload.php' );
 
-		require_once( 'src/WPToolsPage.php' );
-		use WaughJ\WPToolsPage\WPToolsPage;
-		$admin_page = new WPToolsPage( 'security-headers', 'Security Headers' );
+		use WaughJ\WPSettings\WPToolsSubPage;
+		use WaughJ\WPSettings\WPSettingsSection;
+		use WaughJ\WPSettings\WPSettingsOption;
+		$admin_page = new WPToolsSubPage( 'security-headers', 'Security Headers' );
 		$admin_page->submit();
+		$easy_headers_section = new WPSettingsSection( $admin_page, 'easy-headers', 'Easy Headers' );
+		$easy_headers_option = new WPSettingsOption( $easy_headers_section, 'easy-headers', 'Easy Headers', [ 'input_type' => 'checkbox' ] );
+
+		use WaughJ\SecurityHeaders\SecurityHeaders;
+		if ( $easy_headers_option->getOptionValue() )
+		{
+			SecurityHeaders::setAllAutoPolicies();
+		}
 	}
