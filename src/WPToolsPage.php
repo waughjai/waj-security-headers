@@ -14,7 +14,14 @@ namespace WaughJ\WPToolsPage
 
 		public function submit() : void
 		{
-			add_management_page( $this->title, $this->title, $this->capability, $this->slug, [ $this, 'render' ] );
+			add_action
+			(
+				'admin_menu',
+				function()
+				{
+					add_management_page( $this->title, $this->title, $this->capability, $this->slug, [ $this, 'render' ] );
+				}
+			);
 		}
 
 		public function render() : void
