@@ -15,6 +15,7 @@
 	{
 		require_once( 'vendor/autoload.php' );
 
+		use WaughJ\ContentSecurityPolicy\ContentSecurityPolicy;
 		use WaughJ\WPSettings\WPToolsSubPage;
 		use WaughJ\WPSettings\WPSettingsSection;
 		use WaughJ\WPSettings\WPSettingsOption;
@@ -22,6 +23,13 @@
 		$admin_page->submit();
 		$easy_headers_section = new WPSettingsSection( $admin_page, 'easy-headers', 'Easy Headers' );
 		$easy_headers_option = new WPSettingsOption( $easy_headers_section, 'easy-headers', 'Easy Headers', [ 'input_type' => 'checkbox' ] );
+
+		$csp_section = new WPSettingsSection( $admin_page, 'content-security-policy', 'Content Security Policy' );
+		$csp_options = [];
+		foreach ( ContentSecurityPolicy::getSrcTypes() as $type )
+		{
+			$csp_options[ $type ] = new WPSettingsOption( $csp_section, "csp-{$type}", $type, [ 'input_type' => 'textarea' ] );
+		}
 
 		use WaughJ\SecurityHeaders\SecurityHeaders;
 		if ( $easy_headers_option->getOptionValue() )
