@@ -3,34 +3,15 @@
 declare( strict_types = 1 );
 namespace WaughJ\WPToolsPage
 {
-	class WPToolsPage
+	use WaughJ\WPSettings\WPSettingsSubPage;
+
+	class WPToolsPage extends WPSettingsSubPage
 	{
-		public function __construct( string $slug, string $title, string $capability = 'administrator' )
+		public function __construct( string $slug, string $name, string $capability = WPSettingsSubPage::DEFAULT_CAPABILITY )
 		{
-			$this->slug = $slug;
-			$this->title = $title;
-			$this->capability = $capability;
+			parent::__construct( self::TYPE, $slug, $name, $capability );
 		}
 
-		public function submit() : void
-		{
-			add_action
-			(
-				'admin_menu',
-				function()
-				{
-					add_management_page( $this->title, $this->title, $this->capability, $this->slug, [ $this, 'render' ] );
-				}
-			);
-		}
-
-		public function render() : void
-		{
-			echo "<h1>{$this->title}</h1>";
-		}
-
-		private $slug;
-		private $title;
-		private $capability;
+		const TYPE = 'tools';
 	}
 }
