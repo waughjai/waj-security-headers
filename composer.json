@@ -14,7 +14,7 @@
 		"php": ">=7.0",
 		"waughj/security-headers": ">=0.1.0",
 		"waughj/content-security-policy": ">=0.3.1",
-		"waughj/wp-settings": "0.5.0"
+		"waughj/wp-settings": "0.6.0"
     },
     "require-dev": {
 		"phpunit/phpunit": "6.*"
