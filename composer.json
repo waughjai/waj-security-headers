@@ -1,0 +1,26 @@
+{
+    "name": "waughj/waj-security-headers",
+    "description": "WordPress plugins for easily setting security headers, including content security policies.",
+    "keywords": [ "security headers", "content security policy", "wordpress", "plugin" ],
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Jaimeson Waugh",
+            "email": "waughjai@gmail.com"
+        }
+    ],
+    "type": "library",
+    "require": {
+		"php": ">=7.0",
+		"waughj/security-headers": ">=1.0.0",
+		"waughj/content-security-policy": "*"
+    },
+    "require-dev": {
+		"phpunit/phpunit": "6.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "WaughJ\\WPSecurityHeaders\\": "src/"
+        }
+    }
+}
