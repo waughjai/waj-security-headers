@@ -47,7 +47,7 @@
 			}
 		}
 		$csp = new ContentSecurityPolicy( $csp_values );
-		if ( $csp->getHeaderString() !== '' )
+		if ( $csp->getAllHeaderLines() !== '' )
 		{
 			$csp->submit();
 		}
