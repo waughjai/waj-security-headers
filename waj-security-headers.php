@@ -44,9 +44,9 @@
 			foreach ( $csp_options as $csp_option_key => $csp_option )
 			{
 				$value = $csp_option->getOptionValue();
-				if ( $value !== '' )
+				if ( !empty( $value ) )
 				{
-					$csp_values[ $csp_option_key ] = $value;
+					$csp_values[ $csp_option_key ] = explode( "\n", $value );
 				}
 			}
 			$csp = new ContentSecurityPolicy( $csp_values );
