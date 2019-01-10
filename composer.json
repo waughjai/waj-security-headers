@@ -13,7 +13,7 @@
     "require": {
 		"php": ">=7.0",
 		"waughj/security-headers": ">=0.1.0",
-		"waughj/content-security-policy": ">=0.2.0",
+		"waughj/content-security-policy": ">=0.3.0",
 		"waughj/wp-settings": "0.5.0"
     },
     "require-dev": {
