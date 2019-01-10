@@ -26,7 +26,7 @@
 
 		$csp_section = new WPSettingsSection( $admin_page, 'content-security-policy', 'Content Security Policy' );
 		$csp_options = [];
-		foreach ( ContentSecurityPolicy::getSrcTypes() as $type )
+		foreach ( ContentSecurityPolicy::TYPES as $type )
 		{
 			$csp_options[ $type ] = new WPSettingsOption( $csp_section, "csp-{$type}", $type, [ 'input_type' => 'textarea' ] );
 		}
