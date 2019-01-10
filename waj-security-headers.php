@@ -16,14 +16,16 @@
 		require_once( 'vendor/autoload.php' );
 
 		use WaughJ\ContentSecurityPolicy\ContentSecurityPolicy;
+		use WaughJ\SecurityHeaders\SecurityHeaders;
 		use WaughJ\WPSettings\WPToolsSubPage;
 		use WaughJ\WPSettings\WPSettingsSection;
 		use WaughJ\WPSettings\WPSettingsOption;
+
+		// Create Admin Menu pages.
 		$admin_page = new WPToolsSubPage( 'security-headers', 'Security Headers' );
 		$admin_page->submit();
 		$easy_headers_section = new WPSettingsSection( $admin_page, 'easy-headers', 'Easy Headers' );
 		$easy_headers_option = new WPSettingsOption( $easy_headers_section, 'easy-headers', 'Easy Headers', [ 'input_type' => 'checkbox' ] );
-
 		$csp_section = new WPSettingsSection( $admin_page, 'content-security-policy', 'Content Security Policy' );
 		$csp_enable_option = new WPSettingsOption( $csp_section, "csp-enable", 'Enable Content Security Policy', [ 'input_type' => 'checkbox' ] );
 		$csp_options = [];
@@ -32,12 +34,13 @@
 			$csp_options[ $type ] = new WPSettingsOption( $csp_section, "csp-{$type}", $type, [ 'input_type' => 'textarea' ] );
 		}
 
-		use WaughJ\SecurityHeaders\SecurityHeaders;
+		// Set Easy Headers if checked.
 		if ( $easy_headers_option->getOptionValue() )
 		{
 			SecurityHeaders::setAllAutoPolicies();
 		}
 
+		// Set Content Security Policy if checked.
 		if ( $csp_enable_option->getOptionValue() )
 		{
 			$csp_values = [];
@@ -46,7 +49,7 @@
 				$value = $csp_option->getOptionValue();
 				if ( !empty( $value ) )
 				{
-					$csp_values[ $csp_option_key ] = explode( "\n", $value );
+					$csp_values[ $csp_option_key ] = preg_replace( '/\s+/', ' ', $value );
 				}
 			}
 			$csp = new ContentSecurityPolicy( $csp_values );
