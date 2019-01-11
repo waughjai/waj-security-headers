@@ -53,7 +53,7 @@
 					$csp_values[ $csp_option_key ] = preg_replace( '/\s+/', ' ', $value );
 				}
 			}
-			$csp = new ContentSecurityPolicy( $csp_values, [ 'report-only' => $csp_report_only_option->getOptionValue() ] );
+			$csp = new ContentSecurityPolicy( $csp_values, [ 'report-only' => ( $csp_report_only_option->getOptionValue() == true ) ] );
 			$csp->submit();
 		}
 	}
