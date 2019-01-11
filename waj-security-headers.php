@@ -28,6 +28,7 @@
 		$easy_headers_option = new WPSettingsOption( $easy_headers_section, 'easy-headers', 'Easy Headers', [ 'input_type' => 'checkbox' ] );
 		$csp_section = new WPSettingsSection( $admin_page, 'content-security-policy', 'Content Security Policy' );
 		$csp_enable_option = new WPSettingsOption( $csp_section, "csp-enable", 'Enable Content Security Policy', [ 'input_type' => 'checkbox' ] );
+		$csp_report_only_option = new WPSettingsOption( $csp_section, "csp-report-only", 'Report-Only?', [ 'input_type' => 'checkbox' ] );
 		$csp_options = [];
 		foreach ( ContentSecurityPolicy::TYPES as $type )
 		{
@@ -52,7 +53,7 @@
 					$csp_values[ $csp_option_key ] = preg_replace( '/\s+/', ' ', $value );
 				}
 			}
-			$csp = new ContentSecurityPolicy( $csp_values );
+			$csp = new ContentSecurityPolicy( $csp_values, [ 'report-only' => $csp_report_only_option->getOptionValue() ] );
 			$csp->submit();
 		}
 	}
