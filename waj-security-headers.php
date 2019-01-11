@@ -29,10 +29,13 @@
 		$csp_section = new WPSettingsSection( $admin_page, 'content-security-policy', 'Content Security Policy' );
 		$csp_enable_option = new WPSettingsOption( $csp_section, "csp-enable", 'Enable Content Security Policy', [ 'input_type' => 'checkbox' ] );
 		$csp_report_only_option = new WPSettingsOption( $csp_section, "csp-report-only", 'Report-Only?', [ 'input_type' => 'checkbox' ] );
+
 		$csp_options = [];
+		$csp_unsafe_inline_options = [];
 		foreach ( ContentSecurityPolicy::TYPES as $type )
 		{
 			$csp_options[ $type ] = new WPSettingsOption( $csp_section, "csp-{$type}", $type, [ 'input_type' => 'textarea' ] );
+			$csp_unsafe_inline_options[ $type ] = new WPSettingsOption( $csp_section, "csp-unsafe-inline-{$type}", "{$type} unsafe inline?", [ 'input_type' => 'checkbox' ] );
 		}
 
 		// Set Easy Headers if checked.
@@ -54,6 +57,13 @@
 				}
 			}
 			$csp = new ContentSecurityPolicy( $csp_values, [ 'report-only' => ( $csp_report_only_option->getOptionValue() == true ) ] );
+			foreach ( $csp_options as $csp_option_key => $csp_option )
+			{
+				if ( $csp_unsafe_inline_options[ $csp_option_key ]->getOptionValue() )
+				{
+					$csp = $csp->addUnsafeInline( $csp_option_key );
+				}
+			}
 			$csp->submit();
 		}
 	}
