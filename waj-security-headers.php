@@ -61,20 +61,9 @@
 			{
 				if ( $csp_unsafe_inline_options[ $csp_option_key ]->getOptionValue() )
 				{
-					$csp = $csp->addUnsafeInline( $csp_option_key );
+					//$csp = $csp->addUnsafeInline( $csp_option_key );
 				}
 			}
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-			try
-			{
-				$csp->submit();
-			}
-			catch ( \Exception $e )
-			{
-				echo $e;
-			}
+			$csp->submit();
 		}
 	}
