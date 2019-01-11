@@ -61,7 +61,6 @@
 			{
 				if ( $csp_unsafe_inline_options[ $csp_option_key ]->getOptionValue() )
 				{
-<<<<<<< HEAD
 					try
 					{
 						$csp = $csp->addUnsafeInline( $csp_option_key );
@@ -70,9 +69,6 @@
 					{
 						echo $e;
 					}
-=======
-					//$csp = $csp->addUnsafeInline( $csp_option_key );
->>>>>>> b3b8468d56224b7dfeb16d7cf46ceec645fc6e88
 				}
 			}
 			$csp->submit();
